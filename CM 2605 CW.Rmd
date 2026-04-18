@@ -86,7 +86,44 @@ simulate_er <- function(n_patients = 500,
   wait_time <- numeric (n_patients)
   system_time <- numeric (n_patients)
   
-  # Step 6
+  # Step 6: Process each patient sequentially (FCFS)
+  
+  for (i in 1:n_patients){
+    
+    # Find the doctor who becomes free earliest
+    earliest_doctor <- which.min(doctor_free_at)
+    doctor_available_at <- doctor_free_at[earliest_doctor]
+    
+    # Patient can only start service when BOTH the patient has arrived 
+    # AND a doctor is available - whichever is later
+    service_start[i] <- max(arrival_times[i], doctor_available_at)
+    
+    # Service ends after their service duration
+    service_end[i] <- service_start[i] + service_durations[i]
+    
+    # Update that doctor's next free time
+    doctor_free_at[earliest_doctor] <- service_end[i]
+    
+    # Compute waiting time (time spent in queue before being seen)
+    wait_time[i] <- service_start[i] - arrival_times[i]
+    
+    # Compute total system time (wait + service)
+    system_time[i] <- service_end[i] - arrival_times[i]
+  }
+  
+  # Step 7: Return results as a data frame
+  
+  results <- data.frame(
+    Patient = 1:n_patients,
+    Arrival_Time = round(arrival_times, 4),
+    Service_Start = round(service_start, 4),
+    Service_End = round(service_end, 4),
+    Service_Time = round(service_durations, 4),
+    Wait_Time = round(wait_time, 4),
+    System_Time = round(system_time, 4)
+  )
+  
+  return(results)
 }
 ```
 
