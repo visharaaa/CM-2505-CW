@@ -41,8 +41,54 @@ For $c = 3$: $\rho = \frac{12}{15} = 0.80$
 
 For $c = 4$: $\rho = \frac{12}{20} = 0.60$
 
+---
 
+# Simulation Algorithm
 
+## Helper Function: Multi-Server Queue Simulation
+
+```{r}
+
+# Multi- Server Queue Simulation (M/M/c)
+
+# Arguments:
+#   n_patients: number of patients to simulate
+#   arrival_rate: average patients per minute (lambda)
+#   service_rate: average service time in minutes per patient (1/mu)
+#   seed: random seed for reproducibility of results
+
+simulate_er <- function(n_patients = 500, 
+                        arrival_time = 12/60, # patients per minute
+                        service_mean = 12, # average minutes per patient
+                        n_doctors = 3,
+                        seed = 42){
+  set.seed(seed)
+  
+  
+  
+  # Step 1: Generate inter-arrival times (Exponential from Poisson process)
+  # If arrivals are Poisson (lambda), inter-arrival gaps are Exp(lambda)
+  inter_arrivals <- rexp(n = n_patients, rate = arrival_rate)
+  
+  # Step 2: Compute cumulative arrival times
+  arrival_times <- cumsum(inter_arrivals)
+  
+  # Step 3: Generate service durations for each patient 
+  service_durations <- rexp(n = n_patients, rate = 1 / service_mean)
+  
+  # Step 4: Track when each doctor becomes free
+  # Initialize all doctors as free from time 0
+  doctor_free_at <- rep(0,n_doctors)
+  
+  # Step 5: Pre-allocate result vectors
+  service_start <- numeric(n_patients)
+  service_end <- numeric (n_patients)
+  wait_time <- numeric (n_patients)
+  system_time <- numeric (n_patients)
+  
+  # Step 6
+}
+```
 
 
 
