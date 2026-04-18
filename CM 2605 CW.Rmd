@@ -25,3 +25,38 @@ A second scenario is also simulated with 4 triage doctors to assess and compare 
 ---
 
 # Model Parameters
+
+The system is modelled as an **M/M/c queue**, where:
+
+- Arrivals follow a **Poisson process** with rate **$\lambda = 12$** patients/hour ($= 0.2$ patients/minute)
+- Service times follow an **Exponential distribution** with mean $\mu = 12$ minutes per patient per doctor
+- Queue discipline is **First-Come, First-Served (FCFS)**
+- Number of servers $c = 3$ (Scenario 1) and $c = 4$ (Scenario 2)
+- We simulate $n = 500$ patients
+
+The server utilisation factor is:
+
+$$\rho = \frac{\lambda}{c \cdot \mu^{-1}} = \frac{12 \text{ patients/hr}}{c \times 5 \text{ patients/hr/doctor}}$$
+For $c = 3$: $\rho = \frac{12}{15} = 0.80$
+
+For $c = 4$: $\rho = \frac{12}{20} = 0.60$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
