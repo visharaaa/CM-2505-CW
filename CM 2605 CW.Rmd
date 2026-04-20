@@ -230,6 +230,8 @@ cat(sprintf("4 Doctors - Mean Waiting Time (minutes): %.2f\n", mean_wait_4_docs)
 cat(sprintf("4 Doctors - Mean System Time (minutes): %.2f\n", mean(simulation_data_2$System_Time) * 60))
 
 ```
+# Comparison of the Two Systems
+
 ```{r}
 # Comparison table 
 
